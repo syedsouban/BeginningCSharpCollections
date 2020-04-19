@@ -10,9 +10,21 @@ namespace BeginningCSCollections.Top10Pops
             string filePath = @"C:\Users\Souban\Downloads\csharp-collections-beginning\Pop_by_Largest_Final.csv";
             CSVReader reader = new CSVReader(filePath);
             List<Country> countries = reader.ReadAllCountries();
-            foreach (var country in countries) {
-                if (country == null) break;
-                Console.WriteLine($"{country.Name} {country.Population}");
+
+
+
+            Console.WriteLine("Enter batch size: ");
+
+            int batchSize = int.Parse(Console.ReadLine());
+
+            for (int i = 0;i < countries.Count;i++) {
+                if (i>0 && i % batchSize == 0) {
+                    Console.WriteLine("Press enter to continue printing countries and any other key to exit");
+                    if (Console.ReadLine() != "") break;
+                }
+                if (countries[i] == null) break;
+
+                Console.WriteLine($"{countries[i].Name} {countries[i].Population}");
             }
         }
     }
