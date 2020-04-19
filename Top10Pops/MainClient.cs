@@ -9,10 +9,16 @@ namespace BeginningCSCollections.Top10Pops
         static void Main(String[] a) {
             string filePath = @"C:\Users\Souban\Downloads\csharp-collections-beginning\Pop_by_Largest_Final.csv";
             CSVReader reader = new CSVReader(filePath);
-            List<Country> countries = reader.ReadAllCountries();
-            foreach (var country in countries) {
-                if (country == null) break;
-                Console.WriteLine($"{country.Name} {country.Population}");
+            Dictionary<string,Country> countries = reader.ReadAllCountries();
+            Console.WriteLine("Enter a country code to get information about it: ");
+            var countryCode = Console.ReadLine();
+            if (countries.ContainsKey(countryCode))
+            {
+                var country = countries[countryCode];
+                Console.WriteLine($"Information about {countryCode}: \nName:{country.Name}\nRegion:{country.Region}\nPopulation:{country.Population}");
+            }
+            else {
+                Console.WriteLine("There is no country with the given code");
             }
         }
     }

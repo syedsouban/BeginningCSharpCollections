@@ -13,9 +13,9 @@ namespace BeginningCSCollections.Top10Pops
         {
             _csvFilePath = csvFilePath;
         }
-        public List<Country> ReadAllCountries()
+        public Dictionary<string,Country> ReadAllCountries()
         {
-            var countries = new List<Country>();
+            var countries = new Dictionary<string,Country>();
             try {
                 using (var file = File.OpenText(_csvFilePath))
                 {
@@ -33,10 +33,10 @@ namespace BeginningCSCollections.Top10Pops
                         }
                         catch (FormatException f)
                         {
-                            Console.WriteLine($"The country {lineArr[0]} does not have a proper integer population value msg: {f.Message} stacktrace:{f.StackTrace}");
+                            Console.WriteLine($"The country {lineArr[0]} does not have a proper integer population value");
                         }
-                        
-                        countries.Add(new Country(lineArr[0], lineArr[1], lineArr[2], population));
+                        Country country = new Country(lineArr[0], lineArr[1], lineArr[2], population);
+                        countries.Add(country.Code,country);
                         
                     }
                 }
