@@ -13,16 +13,16 @@ namespace BeginningCSCollections.Top10Pops
         {
             _csvFilePath = csvFilePath;
         }
-        public Country[] ReadFirstNCountries(int nCountries)
+        public List<Country> ReadAllCountries()
         {
-            Country[] countries = new Country[nCountries];
+            var countries = new List<Country>();
             try {
                 using (var file = File.OpenText(_csvFilePath))
                 {
                     string line = "";
                     string val = file.ReadLine();
                     int i = 0;
-                    while ((line = file.ReadLine()) != null && i < nCountries)
+                    while ((line = file.ReadLine()) != null)
                     {
                         String[] lineArr = line.Split(",");
                         int population = 0;
@@ -35,8 +35,9 @@ namespace BeginningCSCollections.Top10Pops
                         {
                             Console.WriteLine($"The country {lineArr[0]} does not have a proper integer population value msg: {f.Message} stacktrace:{f.StackTrace}");
                         }
-                        countries[i] = new Country(lineArr[0], lineArr[1], lineArr[2], population);
-                        i++;
+                        
+                        countries.Add(new Country(lineArr[0], lineArr[1], lineArr[2], population));
+                        
                     }
                 }
             }
